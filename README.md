@@ -7,6 +7,7 @@
 
 Кошельки для донатов:
 `0x439c834EE3110CeF4874E94125FE950dc8E35e2b` - ERC20
+
 `TSzyryTJkmT9fiMEVBESjA4sh9SpBw16JX` - TRC20
 
 ## Генерация адреса кошелька
