@@ -36,7 +36,7 @@ cd $PATHTOAPP && cd ..
 snarkos developer deploy "$APPNAME.aleo" --private-key "$PRIVATEKEY" --query "https://vm.aleo.org/api" --path "./$APPNAME/build/" --broadcast "https://vm.aleo.org/api/testnet3/transaction/broadcast" --fee 600000 --record "$RECORD"
 clear
 echo -e "\033[32mDeployment finished!\033[0m\n"
-echo -e "Aleo app name: \033[33m$APPNAME\033[0m\n"
+echo -e "Aleo app name: \033[33m$APPNAME.aleo\033[0m\n"
 echo -e "\033[0;33mCREATED BY ZAVOD VENTURE\033[0m"
 echo -e "\033[33mTelegram: \033[36mhttps://t.me/Zavod_Venture\033[0m\n"
 echo -e "\033[33mDonation:\033[0m"
