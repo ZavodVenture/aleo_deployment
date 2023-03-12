@@ -38,4 +38,7 @@ clear
 echo -e "\033[32mDeployment finished!\033[0m\n"
 echo -e "Aleo app name: \033[33m$APPNAME\033[0m\n"
 echo -e "\033[0;33mCREATED BY ZAVOD VENTURE\033[0m"
-echo -e "\033[33mTelegram: \033[36mhttps://t.me/Zavod_Venture\033[0m"
+echo -e "\033[33mTelegram: \033[36mhttps://t.me/Zavod_Venture\033[0m\n"
+echo -e "\033[33mDonation:\033[0m"
+echo -e "\033[36m0x439c834EE3110CeF4874E94125FE950dc8E35e2b\033[33m - ERC20\033[0m"
+echo -e "\033[36mTSzyryTJkmT9fiMEVBESjA4sh9SpBw16JX\033[33m - TRC20\033[0m"
