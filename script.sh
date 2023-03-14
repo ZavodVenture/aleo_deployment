@@ -3,20 +3,10 @@ APPNAME="helloworld_${WALLETADDRESS:4:6}"
 PRIVATEKEY=""
 RECORD=""
 
+sudo apt update -y
+sudo apt install -y build-essential pkg-config libssl-dev curl clang gcc llvm make tmux xz-utils ufw
 echo -ne "\n" | curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 source "$HOME/.cargo/env"
-sudo apt install -y \
-    build-essential \
-    pkg-config \
-    libssl-dev \
-    curl \
-    clang \
-    gcc \
-    llvm \
-    make \
-    tmux \
-    xz-utils \
-    ufw
 git clone https://github.com/AleoHQ/leo
 cd leo
 cargo install --path .
