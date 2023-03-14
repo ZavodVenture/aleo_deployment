@@ -1,4 +1,4 @@
-WALLETADDRESS="aleo1gmg5x7jyv330kq78j2jll69scxq84jnxclaq5wrqeyme88whvqxssd0c9h"
+WALLETADDRESS=""
 APPNAME="helloworld_${WALLETADDRESS:4:6}"
 PRIVATEKEY=""
 RECORD=""
