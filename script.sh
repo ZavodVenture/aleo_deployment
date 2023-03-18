@@ -5,7 +5,7 @@ RECORD=""
 
 clear
 echo -e "\033[0;33mStarting...\033[0m\n"
-sudo apt install -y build-essential pkg-config libssl-dev curl clang gcc llvm make tmux xz-utils ufw
+sudo apt install -y build-essential pkg-config libssl-dev curl clang git gcc llvm make tmux xz-utils ufw
 echo -ne "\n" | curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 source "$HOME/.cargo/env"
 git clone https://github.com/AleoHQ/leo
