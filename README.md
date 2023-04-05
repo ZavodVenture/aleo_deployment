@@ -24,7 +24,7 @@
 
 Правильно заполненный файл выглядит следующим образом:
 
-![image](https://user-images.githubusercontent.com/127696238/226203196-8618da86-a1ce-4c65-84c3-c8c2b5f8d6d9.png)
+![image](https://user-images.githubusercontent.com/127696238/230115045-39ac36fb-4830-4160-aee5-adf67a3dbb23.png)
 
 ## Запуск скрипта
 
