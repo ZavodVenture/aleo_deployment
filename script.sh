@@ -21,8 +21,6 @@ VAR=$(snarkos developer execute credits.aleo mint $WALLETADDRESS 100000000u64 --
 VAR=$(echo "$VAR" | tr -d '\n')
 VAR=${VAR##*.}
 CLIPHER=$(curl -s "https://vm.aleo.org/api/testnet3/transaction/$VAR" | jq -r ".execution.transitions[0].outputs[0].value")
-clear
-sudo rm -r leo snarkOS
 echo -e "Токены отправлены на адрес.\n\n"
 echo "CLIPHERTEXT: $CLIPHER"
 read -p "Введите PLAINTEXT (без переноса строк): " RECORD
