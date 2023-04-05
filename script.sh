@@ -1,11 +1,10 @@
 WALLETADDRESS=""
 APPNAME="helloworld_${WALLETADDRESS:4:6}"
 PRIVATEKEY=""
-RECORD=""
 
 clear
 echo -e "\033[0;33mStarting...\033[0m\n"
-sudo apt install -y build-essential pkg-config libssl-dev curl clang git gcc llvm make tmux xz-utils ufw
+sudo apt install -y jq build-essential pkg-config libssl-dev curl clang git gcc llvm make tmux xz-utils ufw
 echo -ne "\n" | curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 source "$HOME/.cargo/env"
 git clone https://github.com/AleoHQ/leo
@@ -18,7 +17,15 @@ cargo install --path .
 sudo ufw allow 4133/tcp
 sudo ufw allow 3033/tcp
 cd ~
+VAR=$(snarkos developer execute credits.aleo mint $WALLETADDRESS 100000000u64 --private-key $PRIVATEKEY --query "https://vm.aleo.org/api" --broadcast "https://vm.aleo.org/api/testnet3/transaction/broadcast")
+VAR=$(echo "$VAR" | tr -d '\n')
+VAR=${VAR##*.}
+CLIPHER=$(curl -s "https://vm.aleo.org/api/testnet3/transaction/$VAR" | jq -r ".execution.transitions[0].outputs[0].value")
+clear
 sudo rm -r leo snarkOS
+echo -e "Токены отправлены на адрес.\n\n"
+echo "CLIPHERTEXT: $CLIPHER"
+read -p "Введите PLAINTEXT (без переноса строк): " RECORD
 leo new "$APPNAME"
 cd "$APPNAME" && leo run && cd -
 PATHTOAPP=$(realpath -q $APPNAME)
