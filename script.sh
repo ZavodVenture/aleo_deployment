@@ -1,5 +1,5 @@
 WALLETADDRESS=""
-APPNAME="helloworld_${WALLETADDRESS:4:6}"
+APPNAME=$(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | head -c 10)
 PRIVATEKEY=""
 
 clear
