@@ -1,6 +1,8 @@
-WALLETADDRESS=""
+read -p "Введите адрес кошелька: " WALLETADDRESS
+read -p "Введите приватный ключ: " PRIVATEKEY
+read -p "Введите публичный ключ: " VIEWKEY
+read -p "Введите record из транзакции: " RECORD
 APPNAME=$(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | head -c 10)
-PRIVATEKEY=""
 
 clear
 echo -e "\033[0;33mStarting...\033[0m\n"
@@ -16,20 +18,21 @@ cd snarkOS
 cargo install --path .
 sudo ufw allow 4133/tcp
 sudo ufw allow 3033/tcp
-cd ~
-VAR=$(snarkos developer execute credits.aleo mint $WALLETADDRESS 100000000u64 --private-key $PRIVATEKEY --query "https://vm.aleo.org/api" --broadcast "https://vm.aleo.org/api/testnet3/transaction/broadcast")
-VAR=$(echo "$VAR" | tr -d '\n')
-VAR=${VAR##*.}
-sleep 30
-CLIPHER=$(curl -s "https://vm.aleo.org/api/testnet3/transaction/$VAR" | jq -r ".execution.transitions[0].outputs[0].value")
-echo -e "Токены отправлены на адрес.\n\n"
-echo "CLIPHERTEXT: $CLIPHER"
-read -p "Введите PLAINTEXT (без переноса строк): " RECORD
+cd
 leo new "$APPNAME"
 cd "$APPNAME" && leo run && cd -
 PATHTOAPP=$(realpath -q $APPNAME)
 cd $PATHTOAPP && cd ..
-snarkos developer deploy "$APPNAME.aleo" --private-key "$PRIVATEKEY" --query "https://vm.aleo.org/api" --path "./$APPNAME/build/" --broadcast "https://vm.aleo.org/api/testnet3/transaction/broadcast" --fee 600000 --record "$RECORD"
+RECORD=$(snarkos developer decrypt -v $VIEWKEY -c $RECORD)
+echo -e "\033[0;33mDeploying...\033[0m\n"
+VAR=$(snarkos developer deploy "${APPNAME}.aleo" --private-key "${PRIVATEKEY}" --query "https://vm.aleo.org/api" --path "./${APPNAME}/build/" --broadcast "https://vm.aleo.org/api/testnet3/transaction/broadcast" --fee 25000000 --record "${RECORD}")
+VAR=$(echo "$VAR" | tr -d '\n')
+VAR=${VAR##*.}
+sleep 30
+RECORD=$(curl -s "https://vm.aleo.org/api/testnet3/transaction/$VAR" | jq -r ".fee.transition.outputs[0].value")
+RECORD=$(snarkos developer decrypt -v $VIEWKEY -c $RECORD)
+echo -e "\033[0;33mExecuting...\033[0m\n"
+snarkos developer execute "${APPNAME}.aleo" "main" "1u32" "2u32" --private-key "${PRIVATEKEY}" --query "https://vm.aleo.org/api" --broadcast "https://vm.aleo.org/api/testnet3/transaction/broadcast" --fee 100000 --record "${RECORD}"
 echo -e "\033[32mDeployment finished!\033[0m\n"
 echo -e "Aleo app name: \033[33m$APPNAME\033[0m\n"
 echo -e "\033[0;33mCREATED BY ZAVOD VENTURE\033[0m"
