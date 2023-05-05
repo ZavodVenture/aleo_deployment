@@ -1,7 +1,7 @@
 read -p "Введите адрес кошелька: " WALLETADDRESS
 read -p "Введите приватный ключ: " PRIVATEKEY
 read -p "Введите публичный ключ: " VIEWKEY
-read -p "Введите record из транзакции: " RECORD
+read -p "Введите id транзакции пополнения: " TRID
 APPNAME=$(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | head -c 10)
 
 clear
@@ -23,6 +23,7 @@ leo new "$APPNAME"
 cd "$APPNAME" && leo run && cd -
 PATHTOAPP=$(realpath -q $APPNAME)
 cd $PATHTOAPP && cd ..
+RECORD=$(curl -s "https://vm.aleo.org/api/testnet3/transaction/$TRID" | jq -r ".execution.transitions[0].outputs[0].value")
 RECORD=$(snarkos developer decrypt -v $VIEWKEY -c $RECORD)
 echo -e "\033[0;33mDeploying...\033[0m\n"
 VAR=$(snarkos developer deploy "${APPNAME}.aleo" --private-key "${PRIVATEKEY}" --query "https://vm.aleo.org/api" --path "./${APPNAME}/build/" --broadcast "https://vm.aleo.org/api/testnet3/transaction/broadcast" --fee 25000000 --record "${RECORD}")
