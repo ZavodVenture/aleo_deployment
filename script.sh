@@ -36,7 +36,7 @@ RECORD=$(snarkos developer decrypt -v $VIEWKEY -c $RECORD)
 echo -e "\033[0;33mExecuting...\033[0m\n"
 snarkos developer execute "${APPNAME}.aleo" "main" "1u32" "2u32" --private-key "${PRIVATEKEY}" --query "https://vm.aleo.org/api" --broadcast "https://vm.aleo.org/api/testnet3/transaction/broadcast" --fee 100000 --record "${RECORD}"
 echo -e "\033[32mDeployment finished!\033[0m\n"
-echo -e "Aleo app name: \033[33m$APPNAME\033[0m\n"
+echo -e "Aleo app name: \033[33m$APPNAME.aleo\033[0m\n"
 echo -e "\033[0;33mCREATED BY ZAVOD VENTURE\033[0m"
 echo -e "\033[33mTelegram: \033[36mhttps://t.me/Zavod_Venture\033[0m\n"
 echo -e "\033[33mDonation:\033[0m"
