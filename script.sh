@@ -26,9 +26,10 @@ cd $PATHTOAPP && cd ..
 RECORD=$(snarkos developer decrypt -v $VIEWKEY -c $RECORD)
 echo -e "\033[0;33mDeploying...\033[0m\n"
 VAR=$(snarkos developer deploy "${APPNAME}.aleo" --private-key "${PRIVATEKEY}" --query "https://vm.aleo.org/api" --path "./${APPNAME}/build/" --broadcast "https://vm.aleo.org/api/testnet3/transaction/broadcast" --fee 25000000 --record "${RECORD}")
+echo $VAR
 VAR=$(echo "$VAR" | tr -d '\n')
 VAR=${VAR##*.}
-sleep 30
+sleep 60
 RECORD=$(curl -s "https://vm.aleo.org/api/testnet3/transaction/$VAR" | jq -r ".fee.transition.outputs[0].value")
 RECORD=$(snarkos developer decrypt -v $VIEWKEY -c $RECORD)
 echo -e "\033[0;33mExecuting...\033[0m\n"
