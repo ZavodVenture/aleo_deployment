@@ -13,7 +13,7 @@ git clone https://github.com/AleoHQ/leo
 cd leo
 cargo install --path .
 cd ~
-git clone https://github.com/AleoHQ/snarkOS.git --depth 1
+git clone https://github.com/AleoHQ/snarkOS.git -4 --depth 1
 cd snarkOS
 cargo install --path .
 sudo ufw allow 4133/tcp
