@@ -2,7 +2,7 @@ read -p "Введите адрес кошелька: " WALLETADDRESS
 read -p "Введите приватный ключ: " PRIVATEKEY
 read -p "Введите публичный ключ: " VIEWKEY
 read -p "Введите id транзакции пополнения: " TRID
-APPNAME=$(cat /dev/urandom | tr -dc 'a-zA-Z' | head -c 1 && cat /dev/urandom | tr -dc 'a-zA-Z0-9' | head -c 9)
+APPNAME=$(cat /dev/urandom | tr -dc 'a-z' | head -c 1 && cat /dev/urandom | tr -dc 'a-z0-9' | head -c 9)
 
 clear
 echo -e "\033[0;33mStarting...\033[0m\n"
