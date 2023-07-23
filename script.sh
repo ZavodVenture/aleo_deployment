@@ -13,7 +13,7 @@ git clone https://github.com/AleoHQ/leo
 cd leo
 cargo install --path .
 cd ~
-git clone https://github.com/AleoHQ/snarkOS.git -4 --depth 1
+git clone https://github.com/AleoHQ/snarkOS.git --depth 1
 cd snarkOS
 cargo install --path .
 sudo ufw allow 4133/tcp
@@ -34,9 +34,14 @@ sleep 60
 RECORD=$(curl -s "https://vm.aleo.org/api/testnet3/transaction/$VAR" | jq -r ".fee.transition.outputs[0].value")
 RECORD=$(snarkos developer decrypt -v $VIEWKEY -c $RECORD)
 echo -e "\033[0;33mExecuting...\033[0m\n"
-snarkos developer execute "${APPNAME}.aleo" "main" "1u32" "2u32" --private-key "${PRIVATEKEY}" --query "https://vm.aleo.org/api" --broadcast "https://vm.aleo.org/api/testnet3/transaction/broadcast" --fee 100000 --record "${RECORD}"
+VAR2=$(snarkos developer execute "${APPNAME}.aleo" "main" "1u32" "2u32" --private-key "${PRIVATEKEY}" --query "https://vm.aleo.org/api" --broadcast "https://vm.aleo.org/api/testnet3/transaction/broadcast" --fee 100000 --record "${RECORD}")
+echo $VAR2
+VAR2=$(echo "$VAR" | tr -d '\n')
+VAR2=${VAR##*.}
 echo -e "\033[32mDeployment finished!\033[0m\n"
 echo -e "Aleo app name: \033[33m$APPNAME.aleo\033[0m\n"
+echo -e "Deploy transaction ID: \033[33m$VAR\033[0m\n"
+echo -e "Execute transaction ID: \033[33m$VAR2\033[0m\n"
 echo -e "\033[0;33mCREATED BY ZAVOD VENTURE\033[0m"
 echo -e "\033[33mTelegram: \033[36mhttps://t.me/Zavod_Venture\033[0m\n"
 echo -e "\033[33mDonation:\033[0m"
